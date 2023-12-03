@@ -61,33 +61,36 @@ local theme = lush(function(injected_functions)
     --
     -- See :h highlight-groups
     --
+    --colors: 
+    --  dark blue = 229, 78,13
+    --  pink = 340, 90, 80
     -- ColorColumn    { }, -- Columns set with 'colorcolumn'
     -- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
-    -- Cursor         { }, -- Character under the cursor
-    -- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
+    --Cursor         {fg = hsl(340, 90, 80) }, -- Character under the cursor
+    --CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
-    -- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    -- CursorLine     { }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+    --CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
+    CursorLine     {ctermbg = hsl(0, 0, 29)}, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     -- Directory      { }, -- Directory names (and other special names in listings)
     -- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
     -- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
     -- DiffDelete     { }, -- Diff mode: Deleted line |diff.txt|
     -- DiffText       { }, -- Diff mode: Changed text within a changed line |diff.txt|
-    -- EndOfBuffer    { }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
-    -- TermCursor     { }, -- Cursor in a focused terminal
+    EndOfBuffer    {fg = hsl(340, 90, 80) }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+    TermCursor     {fg = hsl(0, 100, 100) }, -- Cursor in a focused terminal
     -- TermCursorNC   { }, -- Cursor in an unfocused terminal
     -- ErrorMsg       { }, -- Error messages on the command line
     -- VertSplit      { }, -- Column separating vertically split windows
     -- Folded         { }, -- Line used for closed folds
     -- FoldColumn     { }, -- 'foldcolumn'
-    -- SignColumn     { }, -- Column where |signs| are displayed
+    SignColumn     {bg = "None" }, -- Column where |signs| are displayed
     -- IncSearch      { }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     -- Substitute     { }, -- |:substitute| replacement text highlighting
-    -- LineNr         { }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-    -- LineNrAbove    { }, -- Line number for when the 'relativenumber' option is set, above the cursor line
-    -- LineNrBelow    { }, -- Line number for when the 'relativenumber' option is set, below the cursor line
-    -- CursorLineNr   { }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+    LineNr         { fg = hsl(340, 90, 80) }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+    -- LineNrAbove    {  fg = hsl(340, 90, 80)}, -- Line number for when the 'relativenumber' option is set, above the cursor line
+    -- LineNrBelow    { fg = hsl(340, 90, 80)}, -- Line number for when the 'relativenumber' option is set, below the cursor line
+    CursorLineNr   { fg = hsl(253, 61, 71) }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     -- CursorLineFold { }, -- Like FoldColumn when 'cursorline' is set for the cursor line
     -- CursorLineSign { }, -- Like SignColumn when 'cursorline' is set for the cursor line
     -- MatchParen     { }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
@@ -96,8 +99,8 @@ local theme = lush(function(injected_functions)
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    -- Normal         { }, -- Normal text
-    -- NormalFloat    { }, -- Normal text in floating windows.
+    Normal         {bg = "None" }, -- Normal text
+    NormalFloat    {bg = "None" }, -- Normal text in floating windows.
     -- FloatBorder    { }, -- Border of floating windows.
     -- FloatTitle     { }, -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
@@ -117,13 +120,14 @@ local theme = lush(function(injected_functions)
     -- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     -- SpellLocal     { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     -- SpellRare      { }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
-    -- StatusLine     { }, -- Status line of current window
+    StatusLine     {bg = "None", fg = hsl(0, 100, 100) }, -- Status line of current window
     -- StatusLineNC   { }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+    
     -- TabLine        { }, -- Tab pages line, not active tab page label
     -- TabLineFill    { }, -- Tab pages line, where there are no labels
     -- TabLineSel     { }, -- Tab pages line, active tab page label
+    Visual         {bg = hsl(253, 61, 71) , fg = hsl((360 - 253), 82, 25)}, -- Visual mode selection
     -- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
-    -- Visual         { }, -- Visual mode selection
     -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
     -- WarningMsg     { }, -- Warning messages
     -- Whitespace     { }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
@@ -140,41 +144,41 @@ local theme = lush(function(injected_functions)
     --
     -- Uncomment and edit if you want more specific syntax highlighting.
 
-    -- Comment        { }, -- Any comment
+    Comment        { gui = "italic"}, -- Any comment
 
-    -- Constant       { }, -- (*) Any constant
-    -- String         { }, --   A string constant: "this is a string"
-    -- Character      { }, --   A character constant: 'c', '\n'
-    -- Number         { }, --   A number constant: 234, 0xff
-    -- Boolean        { }, --   A boolean constant: TRUE, false
-    -- Float          { }, --   A floating point constant: 2.3e10
+    Constant       {fg = hsl(287, 63, 54)}, -- (*) Any constant
+    String         {fg = hsl(238, 45, 84) }, --   A string constant: "this is a string"
+    Character      {fg = hsl(238, 45, 84) }, --   A character constant: 'c', '\n'
+    Number         {fg = hsl(287, 63, 54)}, --   A number constant: 234, 0xff
+    Boolean        {fg = hsl(306, 16, 40) }, --   A boolean constant: TRUE, false
+    Float          { fg = hsl(287, 63, 54)}, --   A floating point constant: 2.3e10
 
-    -- Identifier     { }, -- (*) Any variable name
-    -- Function       { }, --   Function name (also: methods for classes)
+    Identifier     {fg = hsl(287, 63, 54) }, -- (*) Any variable name
+    Function       {fg = hsl(331, 56, 75) }, --   Function name (also: methods for classes)
 
     -- Statement      { }, -- (*) Any statement
-    -- Conditional    { }, --   if, then, else, endif, switch, etc.
-    -- Repeat         { }, --   for, do, while, etc.
-    -- Label          { }, --   case, default, etc.
-    -- Operator       { }, --   "sizeof", "+", "*", etc.
-    -- Keyword        { }, --   any other keyword
-    -- Exception      { }, --   try, catch, throw
+    Conditional    {fg = hsl(287, 63, 54)  }, --   if, then, else, endif, switch, etc.
+    Repeat         {fg = hsl(287, 63, 54)  }, --   for, do, while, etc.
+    Label          {fg = hsl(287, 63, 54)  }, --   case, default, etc.
+    Operator       { fg = hsl(287, 63, 54) }, --   "sizeof", "+", "*", etc.
+    Keyword        { fg = hsl(287, 63, 54) }, --   any other keyword
+    Exception      { fg = hsl(287, 63, 54) }, --   try, catch, throw
 
     -- PreProc        { }, -- (*) Generic Preprocessor
-    -- Include        { }, --   Preprocessor #include
-    -- Define         { }, --   Preprocessor #define
-    -- Macro          { }, --   Same as Define
-    -- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
+    Include        {fg = hsl(305, 16, 40) }, --   Preprocessor #include
+    Define         { fg = hsl(305, 16, 40)}, --   Preprocessor #define
+    Macro          { fg = hsl(305, 16, 40)}, --   Same as Define
+    PreCondit      { fg = hsl(305, 16, 40)}, --   Preprocessor #if, #else, #endif, etc.
 
-    -- Type           { }, -- (*) int, long, char, etc.
-    -- StorageClass   { }, --   static, register, volatile, etc.
-    -- Structure      { }, --   struct, union, enum, etc.
-    -- Typedef        { }, --   A typedef
+    Type           {fg = hsl(236, 77, 75) }, -- (*) int, long, char, etc.
+    StorageClass   { fg = hsl(236, 77, 75) }, --   static, register, volatile, etc.
+    Structure      { fg = hsl(236, 77, 75) }, --   struct, union, enum, etc.
+    Typedef        { fg = hsl(236, 77, 75) }, --   A typedef
 
-    -- Special        { }, -- (*) Any special symbol
+    Special        { }, -- (*) Any special symbol
     -- SpecialChar    { }, --   Special character in a constant
     -- Tag            { }, --   You can use CTRL-] on this
-    -- Delimiter      { }, --   Character that needs attention
+    --Delimiter      {fg = hsl(238, 45, 84) }, --   Character that needs attention
     -- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
     -- Debug          { }, --   Debugging statements
 
