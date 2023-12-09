@@ -71,7 +71,6 @@ local theme = lush(function(injected_functions)
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
     --CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    CursorLine     {ctermbg = hsl(0, 0, 29)}, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     -- Directory      { }, -- Directory names (and other special names in listings)
     -- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
     -- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
@@ -99,8 +98,9 @@ local theme = lush(function(injected_functions)
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal         {bg = "None" }, -- Normal text
-    NormalFloat    {bg = "None" }, -- Normal text in floating windows.
+    Normal         {bg = "None", fg = hsl(238, 45, 84)  }, -- Normal text
+    NormalFloat    {bg = "None", fg = hsl(238, 45, 84)  }, -- Normal text in floating windows.
+    CursorLine     {bg = Normal.fg.darken(80)}, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     -- FloatBorder    { }, -- Border of floating windows.
     -- FloatTitle     { }, -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
@@ -114,7 +114,7 @@ local theme = lush(function(injected_functions)
     -- PmenuThumb     { }, -- Popup menu: Thumb of the scrollbar.
     -- Question       { }, -- |hit-enter| prompt and yes/no questions
     -- QuickFixLine   { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    -- Search         { }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+    Search         {bg = hsl(47, 100, 79), fg = hsl(0, 0, 20) }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
     -- SpecialKey     { }, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
     -- SpellBad       { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     -- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
@@ -144,19 +144,19 @@ local theme = lush(function(injected_functions)
     --
     -- Uncomment and edit if you want more specific syntax highlighting.
 
-    Comment        { gui = "italic"}, -- Any comment
+    Comment        { gui = "italic", fg = hsl(276, 17, 37)}, -- Any comment
 
-    Constant       {fg = hsl(287, 63, 54)}, -- (*) Any constant
-    String         {fg = hsl(238, 45, 84) }, --   A string constant: "this is a string"
+    Constant       {fg = hsl(274, 100, 67)}, -- (*) Any constant
+    String         {fg = hsl(305, 78, 83) }, --   A string constant: "this is a string"
     Character      {fg = hsl(238, 45, 84) }, --   A character constant: 'c', '\n'
-    Number         {fg = hsl(287, 63, 54)}, --   A number constant: 234, 0xff
+    Number         {fg = hsl(305, 85, 65)}, --   A number constant: 234, 0xff
     Boolean        {fg = hsl(306, 16, 40) }, --   A boolean constant: TRUE, false
-    Float          { fg = hsl(287, 63, 54)}, --   A floating point constant: 2.3e10
+    Float          { fg = hsl(305, 85, 65)}, --   A floating point constant: 2.3e10
 
-    Identifier     {fg = hsl(287, 63, 54) }, -- (*) Any variable name
+    Identifier     { fg = hsl(0, 0, 100).darken(12)}, -- (*) Any variable name
     Function       {fg = hsl(331, 56, 75) }, --   Function name (also: methods for classes)
 
-    -- Statement      { }, -- (*) Any statement
+    Statement      { fg = hsl(287, 63, 54) }, -- (*) Any statement
     Conditional    {fg = hsl(287, 63, 54)  }, --   if, then, else, endif, switch, etc.
     Repeat         {fg = hsl(287, 63, 54)  }, --   for, do, while, etc.
     Label          {fg = hsl(287, 63, 54)  }, --   case, default, etc.
@@ -164,7 +164,7 @@ local theme = lush(function(injected_functions)
     Keyword        { fg = hsl(287, 63, 54) }, --   any other keyword
     Exception      { fg = hsl(287, 63, 54) }, --   try, catch, throw
 
-    -- PreProc        { }, -- (*) Generic Preprocessor
+    PreProc        { fg = hsl(305, 16, 40) }, -- (*) Generic Preprocessor
     Include        {fg = hsl(305, 16, 40) }, --   Preprocessor #include
     Define         { fg = hsl(305, 16, 40)}, --   Preprocessor #define
     Macro          { fg = hsl(305, 16, 40)}, --   Same as Define
@@ -266,10 +266,10 @@ local theme = lush(function(injected_functions)
     -- sym"@number"            { }, -- Number
     -- sym"@boolean"           { }, -- Boolean
     -- sym"@float"             { }, -- Float
-    -- sym"@function"          { }, -- Function
+    sym"@function"          { fg = hsl(305, 78, 83)}, -- Function
     -- sym"@function.builtin"  { }, -- Special
     -- sym"@function.macro"    { }, -- Macro
-    -- sym"@parameter"         { }, -- Identifier
+    sym"@parameter"         {fg = hsl(275, 46, 87) }, -- Identifier
     -- sym"@method"            { }, -- Function
     -- sym"@field"             { }, -- Identifier
     -- sym"@property"          { }, -- Identifier
@@ -278,18 +278,18 @@ local theme = lush(function(injected_functions)
     -- sym"@repeat"            { }, -- Repeat
     -- sym"@label"             { }, -- Label
     -- sym"@operator"          { }, -- Operator
-    -- sym"@keyword"           { }, -- Keyword
+    sym"@keyword"           {fg = hsl(275, 24, 54) }, -- Keyword
     -- sym"@exception"         { }, -- Exception
-    -- sym"@variable"          { }, -- Identifier
+    sym"@variable"          { fg = hsl(60, 55.6, 97.8)}, -- Identifier
     -- sym"@type"              { }, -- Type
-    -- sym"@type.definition"   { }, -- Typedef
-    -- sym"@storageclass"      { }, -- StorageClass
+    sym"@type.definition"   {fg = hsl(243, 90, 80) }, -- Typedef
+    sym"@storageclass"      {fg = hsl(274, 100, 67) }, -- StorageClass
     -- sym"@structure"         { }, -- Structure
     -- sym"@namespace"         { }, -- Identifier
     -- sym"@include"           { }, -- Include
     -- sym"@preproc"           { }, -- PreProc
     -- sym"@debug"             { }, -- Debug
-    -- sym"@tag"               { }, -- Tag
+    sym"@tag"               {fg = hsl(243, 90, 80) }, -- Tag
 }
 end)
 
