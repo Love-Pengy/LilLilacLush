@@ -71,8 +71,8 @@ local theme = lush(function(injected_functions)
 		-- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
 		--CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
 		-- Directory      { }, -- Directory names (and other special names in listings)
-		--DiffAdd({}), -- Diff mode: Added line |diff.txt|
-		--DiffChange({}), -- Diff mode: Changed line |diff.txt|
+		--DiffAdd({ fg = hsl(340, 90, 80), bg = hsl(0, 100, 100) }), -- Diff mode: Added line |diff.txt|
+		--DiffChange({}),                                      -- Diff mode: Changed line |diff.txt|
 		--DiffDelete({}), -- Diff mode: Deleted line |diff.txt|
 		--DiffText({}), -- Diff mode: Changed text within a changed line |diff.txt|
 		EndOfBuffer({ fg = hsl(340, 90, 80) }), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
@@ -280,7 +280,7 @@ local theme = lush(function(injected_functions)
 		sym("@keyword")({ fg = hsl(275, 24, 54) }), -- Keyword
 		-- sym"@exception"         { }, -- Exception
 		sym("@variable")({ fg = hsl(60, 55.6, 97.8) }), -- Identifier
-		-- sym"@type"              { }, -- Type
+		sym("@type")({ fg = hsl(236, 77, 75) }), -- Type
 		sym("@type.definition")({ fg = hsl(243, 90, 80) }), -- Typedef
 		sym("@storageclass")({ fg = hsl(274, 100, 67) }), -- StorageClass
 		-- sym"@structure"         { }, -- Structure

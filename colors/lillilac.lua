@@ -45,6 +45,7 @@ local colors = {
     ["@parameter"] = { fg = "#E0CFED" },
     ["@storageclass"] = { fg = "#B657FF" },
     ["@tag"] = { fg = "#A39EFA" },
+    ["@type"] = { fg = "#8E95F0" },
     ["@type.definition"] = { fg = "#A39EFA" },
     ["@variable"] = { fg = "#FDFDF7" },
     -- PATCH_CLOSE

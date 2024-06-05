@@ -1,6 +1,6 @@
 local lushwright = require("shipwright.transform.lush")
 run(
-	require("lua/lush_theme/SunflowerBee"),
-	lushwright.to_lua,
-	{ patchwrite, "colors/colorscheme.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" }
+    require("lua/lush_theme/lillilac"),
+    lushwright.to_lua,
+    { patchwrite, "colors/lillilac.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" }
 )
