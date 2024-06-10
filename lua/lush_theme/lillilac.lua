@@ -50,6 +50,14 @@ local hsl = lush.hsl
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
     local sym = injected_functions.sym
+    local darkPurp = hsl(276, 17, 37) -- comment
+    local darkPurp2 = hsl(275, 24, 54) -- keyword
+    local darkPurp3 = hsl(263, 47, 60)
+    local medPurp = hsl(274, 100, 67) --constant
+    local lightPurp = hsl(275, 46, 87) --function arg
+    local lightPink = hsl(305, 78, 83) --string
+    local medPink = hsl(305, 85, 65) -- number
+    local medBlue = hsl(243, 90, 80) -- int bool char (type)
     return {
         -- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
         -- groups, mostly used for styling UI elements.
@@ -85,21 +93,21 @@ local theme = lush(function(injected_functions)
         SignColumn({ bg = "None" }), -- Column where |signs| are displayed
         -- IncSearch      { }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
         -- Substitute     { }, -- |:substitute| replacement text highlighting
-        LineNr({ fg = hsl(340, 90, 80) }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-        -- LineNrAbove    {  fg = hsl(340, 90, 80)}, -- Line number for when the 'relativenumber' option is set, above the cursor line
-        -- LineNrBelow    { fg = hsl(340, 90, 80)}, -- Line number for when the 'relativenumber' option is set, below the cursor line
-        CursorLineNr({ fg = hsl(253, 61, 71) }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+        LineNr({ fg = lightPink }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+        LineNrAbove({ fg = lightPink }), -- Line number for when the 'relativenumber' option is set, above the cursor line
+        LineNrBelow({ fg = lightPink }), -- Line number for when the 'relativenumber' option is set, below the cursor line
+        CursorLineNr({ fg = medBlue }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
         -- CursorLineFold { }, -- Like FoldColumn when 'cursorline' is set for the cursor line
         -- CursorLineSign { }, -- Like SignColumn when 'cursorline' is set for the cursor line
         -- MatchParen     { }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
-        -- ModeMsg        { }, -- 'showmode' message (e.g., "-- INSERT -- ")
+        ModeMsg({ fg = lightPink }), -- 'showmode' message (e.g., "-- INSERT -- ")
         -- MsgArea        { }, -- Area for messages and cmdline
         -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
         -- MoreMsg        { }, -- |more-prompt|
         -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-        Normal({ bg = "None", fg = hsl(238, 45, 84) }), -- Normal text
-        NormalFloat({ bg = "None", fg = hsl(238, 45, 84) }), -- Normal text in floating windows.
-        CursorLine({ bg = Normal.fg.darken(80) }),     -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+        Normal({ bg = "None", fg = lightPurp }), -- Normal text
+        NormalFloat({ bg = "None", fg = lightPurp }), -- Normal text in floating windows.
+        CursorLine({ bg = Normal.fg.darken(80) }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
         -- FloatBorder    { }, -- Border of floating windows.
         -- FloatTitle     { }, -- Title of floating windows.
         -- NormalNC       { }, -- normal text in non-current windows
@@ -125,7 +133,7 @@ local theme = lush(function(injected_functions)
         -- TabLine        { }, -- Tab pages line, not active tab page label
         -- TabLineFill    { }, -- Tab pages line, where there are no labels
         -- TabLineSel     { }, -- Tab pages line, active tab page label
-        Visual({ bg = hsl(253, 61, 71), fg = hsl((360 - 253), 82, 25) }), -- Visual mode selection
+        Visual({ bg = medBlue.darken(10), fg = hsl(60, 100, 90) }), -- Visual mode selection
         -- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
         -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
         -- WarningMsg     { }, -- Warning messages
@@ -143,40 +151,40 @@ local theme = lush(function(injected_functions)
         --
         -- Uncomment and edit if you want more specific syntax highlighting.
 
-        Comment({ gui = "italic", fg = hsl(276, 17, 37) }), -- Any comment
+        Comment({ gui = "italic", fg = darkPurp }), -- Any comment
 
-        Constant({ fg = hsl(274, 100, 67) }),         -- (*) Any constant
-        String({ fg = hsl(305, 78, 83) }),            --   A string constant: "this is a string"
-        Character({ fg = hsl(238, 45, 84) }),         --   A character constant: 'c', '\n'
-        Number({ fg = hsl(305, 85, 65) }),            --   A number constant: 234, 0xff
-        Boolean({ fg = hsl(306, 16, 40) }),           --   A boolean constant: TRUE, false
-        Float({ fg = hsl(305, 85, 65) }),             --   A floating point constant: 2.3e10
+        Constant({ fg = medPurp }),           -- (*) Any constant
+        String({ fg = lightPink }),           --   A string constant: "this is a string"
+        Character({ fg = medPurp }),          --   A character constant: 'c', '\n'
+        Number({ fg = medPink }),             --   A number constant: 234, 0xff
+        Boolean({ fg = medPurp }),            --   A boolean constant: TRUE, false
+        Float({ fg = medPink }),              --   A floating point constant: 2.3e10
 
-        Identifier({ fg = hsl(0, 0, 100).darken(12) }), -- (*) Any variable name
-        Function({ fg = hsl(331, 56, 75) }),          --   Function name (also: methods for classes)
+        Identifier({ fg = lightPurp }),       -- (*) Any variable name
+        Function({ fg = lightPink }),         --   Function name (also: methods for classes)
 
-        Statement({ fg = hsl(287, 63, 54) }),         -- (*) Any statement
-        Conditional({ fg = hsl(287, 63, 54) }),       --   if, then, else, endif, switch, etc.
-        Repeat({ fg = hsl(287, 63, 54) }),            --   for, do, while, etc.
-        Label({ fg = hsl(287, 63, 54) }),             --   case, default, etc.
-        Operator({ fg = hsl(287, 63, 54) }),          --   "sizeof", "+", "*", etc.
-        Keyword({ fg = hsl(287, 63, 54) }),           --   any other keyword
-        Exception({ fg = hsl(287, 63, 54) }),         --   try, catch, throw
+        Statement({ fg = darkPurp2 }),        -- (*) Any statement
+        Conditional({ fg = darkPurp2 }),      --   if, then, else, endif, switch, etc.
+        Repeat({ fg = darkPurp2 }),           --   for, do, while, etc.
+        Label({ fg = darkPurp2 }),            --   case, default, etc.
+        Operator({ fg = darkPurp2 }),         --   "sizeof", "+", "*", etc.
+        Keyword({ fg = darkPurp2 }),          --   any other keyword
+        Exception({ fg = darkPurp2 }),        --   try, catch, throw
 
-        PreProc({ fg = hsl(305, 16, 40) }),           -- (*) Generic Preprocessor
-        Include({ fg = hsl(305, 16, 40) }),           --   Preprocessor #include
-        Define({ fg = hsl(305, 16, 40) }),            --   Preprocessor #define
-        Macro({ fg = hsl(305, 16, 40) }),             --   Same as Define
-        PreCondit({ fg = hsl(305, 16, 40) }),         --   Preprocessor #if, #else, #endif, etc.
+        PreProc({ fg = darkPurp2 }),          -- (*) Generic Preprocessor
+        Include({ fg = darkPurp2 }),          --   Preprocessor #include
+        Define({ fg = darkPurp2 }),           --   Preprocessor #define
+        Macro({ fg = darkPurp2 }),            --   Same as Define
+        PreCondit({ fg = darkPurp2 }),        --   Preprocessor #if, #else, #endif, etc.
 
-        Type({ fg = hsl(236, 77, 75) }),              -- (*) int, long, char, etc.
-        StorageClass({ fg = hsl(236, 77, 75) }),      --   static, register, volatile, etc.
-        Structure({ fg = hsl(236, 77, 75) }),         --   struct, union, enum, etc.
-        Typedef({ fg = hsl(236, 77, 75) }),           --   A typedef
+        Type({ fg = medBlue }),               -- (*) int, long, char, etc.
+        StorageClass({ fg = darkPurp2 }),     --   static, register, volatile, etc.
+        Structure({ fg = darkPurp2 }),        --   struct, union, enum, etc.
+        Typedef({ fg = darkPurp2 }),          --   A typedef
 
-        Special({}),                                  -- (*) Any special symbol
+        Special({}),                          -- (*) Any special symbol
         -- SpecialChar    { }, --   Special character in a constant
-        -- Tag            { }, --   You can use CTRL-] on this
+        Tag({ fg = medBlue }),                --   You can use CTRL-] on this
         --Delimiter      {fg = hsl(238, 45, 84) }, --   Character that needs attention
         -- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
         -- Debug          { }, --   Debugging statements
@@ -201,31 +209,32 @@ local theme = lush(function(injected_functions)
 
         -- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
         --
-        DiagnosticError({ fg = hsl(0, 100, 50) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        DiagnosticWarn({ fg = hsl(60, 100, 50) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        -- DiagnosticInfo             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        -- DiagnosticHint             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        -- DiagnosticOk               { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-        -- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
-        -- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
-        -- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
-        -- DiagnosticVirtualTextHint  { } , -- Used for "Hint" diagnostic virtual text.
-        -- DiagnosticVirtualTextOk    { } , -- Used for "Ok" diagnostic virtual text.
-        -- DiagnosticUnderlineError   { } , -- Used to underline "Error" diagnostics.
+
+        DiagnosticInfo({ fg = hsl(180, 77, 73) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticHint({ fg = hsl(204, 100, 81) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticOk({ fg = hsl(132, 65, 80) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+        DiagnosticWarn({ fg = hsl(60, 80, 50) }),
+        DiagnosticError({ fg = hsl(6, 100, 50) }),
+        DiagnosticVirtualTextError({ fg = hsl(6, 100, 50) }), -- Used for "Error" diagnostic virtual text.
+        DiagnosticVirtualTextWarn({ fg = hsl(60, 80, 50) }), -- Used for "Warn" diagnostic virtual text.
+        DiagnosticVirtualTextInfo({ fg = hsl(180, 77, 73) }), -- Used for "Info" diagnostic virtual text.
+        DiagnosticVirtualTextHint({ fg = hsl(204, 100, 81) }), -- Used for "Hint" diagnostic virtual text.
+        DiagnosticVirtualTextOk({ fg = hsl(132, 65, 80) }), -- Used for "Ok" diagnostic virtual text.
+        -- DiagnosticUnderlineError({ fg = hsl(0, 100, 50) }), -- Used to underline "Error" diagnostics.
         -- DiagnosticUnderlineWarn    { } , -- Used to underline "Warn" diagnostics.
         -- DiagnosticUnderlineInfo    { } , -- Used to underline "Info" diagnostics.
         -- DiagnosticUnderlineHint    { } , -- Used to underline "Hint" diagnostics.
         -- DiagnosticUnderlineOk      { } , -- Used to underline "Ok" diagnostics.
-        -- DiagnosticFloatingError    { } , -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
-        -- DiagnosticFloatingWarn     { } , -- Used to color "Warn" diagnostic messages in diagnostics float.
-        -- DiagnosticFloatingInfo     { } , -- Used to color "Info" diagnostic messages in diagnostics float.
-        -- DiagnosticFloatingHint     { } , -- Used to color "Hint" diagnostic messages in diagnostics float.
-        -- DiagnosticFloatingOk       { } , -- Used to color "Ok" diagnostic messages in diagnostics float.
-        -- DiagnosticSignError        { } , -- Used for "Error" signs in sign column.
-        -- DiagnosticSignWarn         { } , -- Used for "Warn" signs in sign column.
-        -- DiagnosticSignInfo         { } , -- Used for "Info" signs in sign column.
-        -- DiagnosticSignHint         { } , -- Used for "Hint" signs in sign column.
-        -- DiagnosticSignOk           { } , -- Used for "Ok" signs in sign column.
+        DiagnosticFloatingError({ fg = hsl(6, 100, 50) }), -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
+        DiagnosticFloatingWarn({ fg = hsl(60, 80, 50) }), -- Used to color "Warn" diagnostic messages in diagnostics float.
+        DiagnosticFloatingInfo({ fg = hsl(180, 77, 73) }), -- Used to color "Info" diagnostic messages in diagnostics float.
+        DiagnosticFloatingHint({ fg = hsl(204, 100, 81) }), -- Used to color "Hint" diagnostic messages in diagnostics float.
+        DiagnosticFloatingOk({ fg = hsl(132, 65, 80) }), -- Used to color "Ok" diagnostic messages in diagnostics float.
+        DiagnosticSignError({ fg = hsl(6, 100, 50) }), -- Used for "Error" signs in sign column.
+        DiagnosticSignWarn({ fg = hsl(60, 80, 50) }), -- Used for "Warn" signs in sign column.
+        DiagnosticSignInfo({ fg = hsl(180, 77, 73) }), -- Used for "Info" signs in sign column.
+        DiagnosticSignHint({ fg = hsl(204, 100, 81) }), -- Used for "Hint" signs in sign column.
+        DiagnosticSignOk({ fg = hsl(132, 65, 80) }),  -- Used for "Ok" signs in sign column.
 
         -- Tree-Sitter syntax groups.
         --
@@ -244,51 +253,88 @@ local theme = lush(function(injected_functions)
         --
         -- For more information see https://github.com/rktjmp/lush.nvim/issues/109
 
-        -- sym"@text.literal"      { }, -- Comment
-        -- sym"@text.reference"    { }, -- Identifier
-        -- sym"@text.title"        { }, -- Title
-        -- sym"@text.uri"          { }, -- Underlined
-        -- sym"@text.underline"    { }, -- Underlined
-        -- sym"@text.todo"         { }, -- Todo
-        -- sym"@comment"           { }, -- Comment
-        -- sym"@punctuation"       { }, -- Delimiter
-        -- sym"@constant"          { }, -- Constant
-        -- sym"@constant.builtin"  { }, -- Special
-        -- sym"@constant.macro"    { }, -- Define
-        -- sym"@define"            { }, -- Define
-        -- sym"@macro"             { }, -- Macro
-        -- sym"@string"            { }, -- String
-        -- sym"@string.escape"     { }, -- SpecialChar
-        -- sym"@string.special"    { }, -- SpecialChar
-        -- sym"@character"         { }, -- Character
-        -- sym"@character.special" { }, -- SpecialChar
-        -- sym"@number"            { }, -- Number
-        -- sym"@boolean"           { }, -- Boolean
-        -- sym"@float"             { }, -- Float
-        sym("@function")({ fg = hsl(305, 78, 83) }), -- Function
-        -- sym"@function.builtin"  { }, -- Special
-        -- sym"@function.macro"    { }, -- Macro
-        sym("@parameter")({ fg = hsl(275, 46, 87) }), -- Identifier
-        -- sym"@method"            { }, -- Function
-        -- sym"@field"             { }, -- Identifier
-        -- sym"@property"          { }, -- Identifier
-        -- sym"@constructor"       { }, -- Special
-        -- sym"@conditional"       { }, -- Conditional
-        -- sym"@repeat"            { }, -- Repeat
-        -- sym"@label"             { }, -- Label
-        -- sym"@operator"          { }, -- Operator
-        sym("@keyword")({ fg = hsl(275, 24, 54) }),   -- Keyword
-        -- sym"@exception"         { }, -- Exception
-        sym("@variable")({ fg = hsl(60, 55.6, 97.8) }), -- Identifier
-        sym("@type")({ fg = hsl(236, 77, 75) }),      -- Type
-        sym("@type.definition")({ fg = hsl(243, 90, 80) }), -- Typedef
-        sym("@storageclass")({ fg = hsl(274, 100, 67) }), -- StorageClass
-        -- sym"@structure"         { }, -- Structure
-        -- sym"@namespace"         { }, -- Identifier
-        -- sym"@include"           { }, -- Include
-        -- sym"@preproc"           { }, -- PreProc
-        -- sym"@debug"             { }, -- Debug
-        sym("@tag")({ fg = hsl(243, 90, 80) }), -- Tag
+        --identifiers
+        sym("@variable")({ fg = hsl(0, 0, 100).darken(12) }),             -- various variable names
+        sym("@variable.builtin")({ fg = hsl(0, 0, 100).darken(12) }),     -- vuiltin variable names
+        sym("@variable.parameter")({ fg = hsl(0, 0, 100).darken(12) }),   -- parameters of a function
+        sym("@variable.parameter.builtin")({ fg = hsl(0, 0, 100).darken(12) }), -- special parameters eg _, it
+        sym("@variable.member")({ fg = hsl(0, 0, 100).darken(12) }),      -- object and struct fields
+
+        sym("@constant")({ fg = medPurp }),                               -- constant identifiers
+        sym("@constant.builtin")({ fg = medPurp }),                       -- built in constant values
+        sym("@constant.macro")({ fg = medPurp }),                         -- constants defined by the preprocessor
+
+        --sym("@module")({}), --modules or namespaces
+        --sym("@module.builtin")({}), -- built-in modules or namespaces
+        --sym("@label")({fg = medPurp}), -- GOTO and other labels (e.g. 'label:' in C)
+
+        --Literals
+        sym("@string")({ fg = lightPink }), -- String
+        -- sym("@string.documentation")({ fg = lightPink }), -- string documenting code eg python docstrings
+        -- sym("@string.regexp")({ fg = lightPink }), -- regular expressions
+        -- sym("@string.escape")     { }, -- escape sequences
+        -- sym("@string.special")    { }, -- other special strings eg. dates
+        -- sym("@string.special.symbol")({ fg = lightPink }), -- sybols or atoms
+        -- sym("@string.special.url")({ fg = lightPink }), -- URLIs eg hyperlinks (url outside markup)
+        -- sym("@string.special.path")({ fg = lightPink }), -- fiilenames
+
+        sym("@character")({ fg = lightPurp }), -- character literals
+        -- sym("@character.special") { }, -- special characters eg wildcards
+
+        sym("@boolean")({ fg = medPurp }), -- bool literals
+        sym("@number")({ fg = medPink }), -- numeric literals
+        sym("@float")({ fg = medPink }), -- float literals
+
+        --types
+        sym("@type")({ Type }),              -- type or class definitions and annotations
+        sym("@type.definition")({ fg = medPurp }), -- built-in types
+        sym("@type.builtin")({ fg = medBlue }), -- ids in type definitions eg. typedef <type> <identifier> in c
+
+        -- sym("@attribute")({}) -- attribute annotations eg. python decorators
+        -- sym("@attribute.builtin")({}) -- builtin annotations eg @property in python
+        -- sym("@property")({}) -- the key in key/value pairs
+
+        sym("@function")({ fg = lightPink }),   -- function definitions
+        sym("@function.builtin")({ fg = darkPurp3 }), -- built in functions
+        sym("@function.call")({ fg = darkPurp3 }), -- function calls
+        sym("@function.macro")({ fg = darkPurp2 }), -- preprocessor macros
+
+        sym("@operator")({ fg = darkPurp }),    -- operators
+        -- sym"@constructor"       { }, -- constructor calls and definitions
+
+        -- Keywords
+        sym("@keyword")({ fg = darkPurp2 }),                       -- keywords not fitting into a specific category
+        sym("@keyword.coroutine")({ fg = darkPurp2 }),             -- keywords related to coroutines (eg async in python)
+        sym("@keyword.function")({ fg = darkPurp2 }),              -- keywords that define a function eg def in python
+        sym("@keyword.operator")({ sym("@operator") }),            -- operators that are english words eg and in python
+        sym("@keyword.import")({ Include }),                       -- keywords for including modules eg from in python
+        sym("@keyword.type")({ fg = darkPurp2 }),                  -- keywords describing composite types eg struct or enum
+        sym("@keyword.modifier")({ fg = darkPurp2 }),              -- keywords modifying other constructs eg const, or static
+        sym("@keyword.repeat")({ fg = darkPurp2 }),                -- keywords related to loops eg while or for
+        sym("@keyword.return")({ fg = darkPurp2 }),                -- the return keyword
+        -- sym("@keyword.debug")({ fg = darkPurp }), -- keywords related to debugging
+        sym("@keyword.exception")({ fg = darkPurp }),              -- keywords related to exceptions eg throw
+
+        sym("@keyword.conditional")({ Conditional }),              -- keywords related to conditionals eg if or else
+        sym("@keyword.conditional.ternary")({ sym("@operator") }), -- ternary operator eg ? or :
+
+        sym("@keyword.directive")({ fg = darkPurp }),              -- various preprocessor directives
+        sym("@keyword.directive.define")({ sym("@keyword.directive") }), -- preprocessor definition directives
+
+        -- punctuation
+        sym("@punctuation.delimiter")({ Normal }), -- delimiters eg ;
+        sym("@punctuation.bracket")({ Normal }), -- brackets eg ()
+        sym("@punctuation.special")({ Normal }), -- special symbols eg {} in string interpolation
+
+        -- comments
+        sym("@comment")({ gui = "italic", fg = darkPurp }),         -- line and block comments
+        sym("@comment.documentation")({ gui = "italic", fg = darkPurp }), -- comments documenting code
+
+        sym("@comment.error")({ DiagnosticError }),                 -- line and block comments
+        sym("@comment.warning")({ DiagnosticWarn }),                -- line and block comments
+        sym("@comment.hint")({ DiagnosticHint }),                   -- line and block comments
+        sym("@comment.info")({ DiagnosticInfo }),                   -- line and block comments
+        -- sym("@comment.todo")({}), -- line and block comments
     }
 end)
 
